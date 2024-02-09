@@ -20,6 +20,7 @@ from threading import Lock
 
 from typing import NamedTuple
 from unidiff import PatchSet
+from security import safe_command
 
 
 log = logging.getLogger("lint_diffs")
@@ -155,7 +156,7 @@ def do_lint(config, linter, diffs, files):
         joined += files
 
     try:
-        ret = subprocess.run(joined, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf8", check=False)
+        ret = safe_command.run(subprocess.run, joined, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf8", check=False)
     except FileNotFoundError:
         return LintResult(returncode=NOTFOUND, skipped=0, total=0,
                           mine=0, always=0, other=0, output="Command not found for '%s'\n" % linter)
