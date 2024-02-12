@@ -317,9 +317,8 @@ def main():
     else:
         mapper = map
 
-    exitcode = max(mapper(print_lint, linters.items()))
 
-    if exitcode != 0:
+    if (exitcode := max(mapper(print_lint, linters.items()))) != 0:
         sys.exit(exitcode)
 
 
