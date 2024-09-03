@@ -6,3 +6,4 @@ flake8
 unidiff
 flit
 codecov
+security==1.3.1
